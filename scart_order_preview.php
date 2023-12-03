@@ -1,9 +1,8 @@
 <?php
-
-session_start();
+require_once 'handlers/_config_session.php';
 
 if (
-    $_SERVER['REQUEST_METHOD'] == 'POST'
+    $_SERVER['REQUEST_METHOD'] === 'POST'
     && isset($_POST['email-order'])
     && isset($_POST['fullname'])
     && isset($_POST['street-number'])

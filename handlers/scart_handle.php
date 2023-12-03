@@ -1,5 +1,5 @@
 <?php
-require_once 'handlers/_config_session.php';
+require_once '_config_session.php';
 
 $json_product = file_get_contents("php://input");
 $product = json_decode($json_product, true);
