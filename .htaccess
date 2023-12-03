@@ -1,0 +1,26 @@
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteRule ^.*$ htaccess_tester.php
+# </IfModule>
+# # Header always set Content-Security-Policy "upgrade-insecure-requests;"
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# RewriteCond %{REQUEST_FILENAME} !-d
+# # RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME}\.php -f
+# # RewriteRule .* / [L, R=301]
+
+RewriteCond %{REQUEST_URI} !^/$
+RewriteCond %{REQUEST_URI} !^/administrator
+RewriteCond %{REQUEST_URI} !\.(gif|jpe?g|png|css|js)$
+RewriteRule ^home index.php
+# RewriteRule ^produkt/([0-9]+) index.php?product_id=$1 [R=301]
+
+</IfModule>
+# Test.
+
+# # Set the default handler
+# DirectoryIndex index.php index.html index.htm
+
+# ...

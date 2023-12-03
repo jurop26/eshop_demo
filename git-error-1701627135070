@@ -1,0 +1,4 @@
+> git -c user.useConfigOnly=true commit --quiet
+error: cannot run gpg: No such file or directory
+error: gpg failed to sign the data
+fatal: failed to write commit object

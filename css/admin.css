@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    background-color: aqua;
+}
+
+.form-container{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    width: 100vw;
+    height: 100vh;
+}
+
+.form {
+    display: flex;
+    flex: 0.5;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form input {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.form input[type="submit"] {
+    font-size: medium;
+    font-weight: bold;
+    color: black;
+    background-color: greenyellow;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    width: auto;
+}
+
+.form-container a {
+    text-decoration: none;
+    color: black;
+    padding-left: 3rem;
+}
+
+.errors {
+    color: red;
+}
+
+header {
+    height: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header button {
+    text-decoration: none;
+    margin: 0 2rem;
+}
+
+.admin-nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.admin-nav-bar input {
+    padding: 0 3rem;
+    margin: 0 1rem;
+}
+
+.company-input-container {
+    margin: 0 auto;
+    width: 80%;
+    text-align: right;
+}
+
+.company-input-container input[type="text"]:disabled{
+    background-color: transparent;
+}
+
+.company-register-data ul {
+    list-style-type: none;
+}
+
+.company-register-data li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2px;
+}
+
+.company-register-data label {
+    float: left;
+}
+.company-register-data input {
+    border: none;
+    margin-right: 40px;
+}
+
+/* --------------------ESHOP STYLE---------------------------- */
+
+.products-list-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+#sort-by-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
+
+table, tr, td, th {
+    font-weight: bolder;
+    font-size: .9rem;
+    padding: .2rem;
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+.add-product-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
