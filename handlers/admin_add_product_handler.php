@@ -89,7 +89,7 @@ function upload_image($product_image)
     }
 
     if (is_wrong_type($fileType)) {
-        $errors["file_type"] = "File has a wrong extension!";
+        $errors["file_type"] = "File has a wrong extension";
     }
 
     if (file_exists($targetFile)) {
