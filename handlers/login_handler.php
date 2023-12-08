@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $username = null;
 
     if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') {
-        $sql = "SELECT * FROM users WHERE email = :user_email;";
+        $sql = "SELECT * FROM admin WHERE email = :user_email;";
     } else {
         $sql = "SELECT * FROM users WHERE email = :user_email;";
     }

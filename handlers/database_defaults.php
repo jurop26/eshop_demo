@@ -7,6 +7,7 @@ require_once 'connections/dbh.php';
 create_products_table($pdo);
 create_shopping_cart_table($pdo);
 create_users_table($pdo);
+create_admin_table($pdo);
 
 function create_eshop_database()
 {
@@ -65,6 +66,29 @@ function create_users_table($pdo)
             id INT AUTO_INCREMENT,
             user_first_name VARCHAR(50) NULL,
             user_last_name VARCHAR(50) NULL,
+            email VARCHAR(50) NULL,
+            password VARCHAR(50) NULL,
+            user_phone_number INT(15) NULL,
+            user_street_address VARCHAR(100) NULL,
+            user_house_number VARCHAR(15) NULL,
+            user_city VARCHAR(100) NULL,
+            user_postal_code INT(15) NULL,
+            user_sign_up TIMESTAMP NULL,
+            PRIMARY KEY(id)
+        );';
+        $pdo->exec($sql);
+        $pdo = null;
+    } catch (PDOException $e) {
+        die('An error occurred: ' . $e->getMessage());
+    }
+}
+
+function create_admin_table($pdo)
+{
+    try {
+        $sql = 'CREATE TABLE IF NOT EXISTS admin(
+            id INT AUTO_INCREMENT,
+            user_first_name VARCHAR(50) NULL,
             user_last_name VARCHAR(50) NULL,
             email VARCHAR(100) NULL,
             password VARCHAR(50) NULL,
