@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+require_once 'handlers/_config_session.php';
 
 $shipment = ['123 Kuriér' => 1.99, 'ParcelForce' => 1.99, 'UPS' => 2.30, 'Slovenská pošta - kuriér' => 2.40];
 $payment = ['Dobierka' => 1.00, 'VISA' => 0, 'Apple Pay' => 0, 'Google Pay' => 0];
