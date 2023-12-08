@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '_config_session.php';
 
 $json_product = file_get_contents('php://input');
 $product = json_decode($json_product, true);
@@ -9,45 +9,64 @@ $product_id = $product["product_id"];
 if (isset($_COOKIE["orderNo"])) {
 
     $uniqid = getOrderNumberFromCookies("orderNo");
-    try {
-        $sql = "SELECT * FROM shopping_carts WHERE `s_cart_uniqid` = '$uniqid'";
-        include('connections/database.php');
-        $result = mysqli_query($conn, $sql);
-        mysqli_close($conn);
 
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $json_existing_cart = $row['s_cart_json_data'];
-            $existing_cart = json_decode($json_existing_cart, true);
+    require_once 'connections/dbh.php';
 
-            $key = findProductCartIndex($product_id, $existing_cart);
-            if ($key !== false) {
-                array_splice($existing_cart, $key, 1);
-            }
+    $result = get_shopping_cart($pdo, $uniqid);
 
-            $total_pieces = totalPiecesInCart($existing_cart);
-            $_SESSION["totalPieces"] = $total_pieces;
+    if ($result) {
+        $json_existing_cart = $result;
+        $existing_cart = json_decode($json_existing_cart, true);
 
-            storeOrderNumberToCookies("orderNo", $uniqid);
-            $current_timestamp = date('Y-m-d H:i:s');
-
-            $json_updated_cart = json_encode($existing_cart);
-            $sql = "UPDATE shopping_carts SET s_cart_json_data = '$json_updated_cart', s_cart_timestamp = '$current_timestamp' 
-                    WHERE s_cart_uniqid = '$uniqid'";
-            try {
-                include('connections/database.php');
-                mysqli_query($conn, $sql);
-                mysqli_close($conn);
-
-                $echo_response = array("message" => "Produkt bol vymazaný z košika", "totalPieces" => $total_pieces);
-                echo json_encode($echo_response);
-                exit();
-            } catch (Exception $e) {
-                echo $e;
-            }
+        $key = findProductCartIndex($product_id, $existing_cart);
+        if ($key !== false) {
+            array_splice($existing_cart, $key, 1);
         }
-    } catch (Exception $e) {
-        echo $e;
+
+        $total_pieces = totalPiecesInCart($existing_cart);
+        $_SESSION["totalPieces"] = $total_pieces;
+
+        storeOrderNumberToCookies("orderNo", $uniqid);
+        $current_timestamp = date('Y-m-d H:i:s');
+
+        $json_updated_cart = json_encode($existing_cart);
+
+        update_shopping_cart($pdo, $uniqid, $json_updated_cart, $current_timestamp);
+
+        $echo_response = array("message" => "Produkt bol vymazaný z košika", "totalPieces" => $total_pieces);
+        die(json_encode($echo_response));
+    }
+}
+
+function get_shopping_cart($pdo, $uniqid)
+{
+    try {
+        $sql = "SELECT s_cart_json_data FROM shopping_carts WHERE s_cart_uniqid = :uniqid";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':uniqid', $uniqid);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_COLUMN);
+        $pdo = null;
+        $stmt = null;
+        return $result;
+    } catch (PDOException $e) {
+        die("Nepodarilo sa načítať nákupný košík: ") . $e->getMessage();
+    }
+}
+
+function update_shopping_cart($pdo, $uniqid, $json_updated_cart, $current_timestamp)
+{
+    try {
+        $sql = "UPDATE shopping_carts SET s_cart_json_data = :json_updated_cart, s_cart_timestamp = :current_timestamp WHERE s_cart_uniqid = :uniqid";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':json_updated_cart', $json_updated_cart, PDO::PARAM_STR);
+        $stmt->bindParam(':current_timestamp', $current_timestamp);
+        $stmt->bindParam(':uniqid', $uniqid);
+        $stmt->execute();
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Chyba pri updatovani košíka") . $e->getMessage();
     }
 }
 

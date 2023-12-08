@@ -14,8 +14,8 @@ require_once 'handlers/_config_session.php';
 </head>
 
 <body>
-    <div class="form-container">
-        <form class="form" action="handlers/login_handler.php" method="post">
+    <div class="login-form-container">
+        <form class="login-form" action="handlers/login_handler.php" method="post">
             <h1 style="text-align: center;">ADMINISTRÁTOR - PRIHLÁSENIE</h1>
             <input type="email" name="email" placeholder="Zadajte emailovú adresu" required>
             <input type="password" name="password" placeholder="Zadajte heslo" required>

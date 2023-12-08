@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         $_SESSION['email'] = $user_email;
 
         if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/login.php') header("Location: ../index.php");
-        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') header("Location: ../admin_page.php");
+        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') header("Location: ../admin_eshop.php");
         if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/scart_user_address.php') header("Location: ../scart_user_address.php");
         die();
     } catch (PDOException $e) {

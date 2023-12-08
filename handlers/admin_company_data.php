@@ -1,11 +1,12 @@
 <?php
+
 if (!isset($_SESSION["username"]) && empty($_SESSION["username"])) {
     header("Location: admin.php");
     die();
 }
 
 try {
-    require_once 'connections/dbh.php';
+    require_once 'handlers/connections/dbh.php';
 
     $result = get_company_data($pdo);
 
@@ -28,7 +29,7 @@ try {
 function company_data($company_name, $company_ico, $company_dic, $company_icdph, $company_street,  $company_house_number, $company_city, $company_postal_code)
 {
     return '<div class="company-input-container">
-                <form action=" method="post" id="company-register-form">
+                <form action="" method="post" id="company-register-form">
                     <ul class="company-register-data">
                         <li>
                             <label for="company-name">Názov spoločnosti:</label>
