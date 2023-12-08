@@ -29,7 +29,8 @@ try {
             $product_price = $row['product_price'];
             $product_description = $row['product_description'];
             $product_stocked = $row['product_stocked'] > 0 ? "Skladom" : "Nedostupne";
-            $product_image = base64_encode($row['product_image']);
+            $product_image = $row['product_image'];
+            // $product_image = base64_encode($row['product_image']);
 
             if (!$product_detail_view) {
                 echo product_container($product_id, $product_name, $product_price, $product_image, $product_bar_code, $product_stocked);
@@ -45,57 +46,57 @@ try {
 // Product container - square structure
 function product_container($product_id, $product_name, $product_price, $product_image, $product_bar_code, $product_stocked)
 {
-    $container = "<div class='item-container'>
-                    <a href='index.php?product_id=$product_id' class='product-image'>
-                        <img src='data:image/jpg;charset=utf8;base64,$product_image'>
+    $container = '<div class="item-container">
+                    <a href="index.php?product_id=' . $product_id . '" class="product-image">
+                        <img src="' . $product_image . '">
                     </a>
-                    <a href='index.php?product_id=$product_id' class''>
-                        <div class='item-name'>$product_name</div>
+                    <a href="index.php?product_id=' . $product_id . '">
+                        <div class="item-name">' . $product_name . '</div>
                     </a>
-                    <div class='item-stock stocked'>$product_stocked</div>
-                    <div class='item-price-basket-container'>
-                        <div class='item-price'>
-                            €$product_price
+                    <div class="item-stock stocked">' . $product_stocked . '</div>
+                    <div class="item-price-basket-container">
+                        <div class="item-price">
+                            €' . $product_price . '
                         </div>
-                            <form class='action-cart'>
-                                <input type='hidden' name='product-id' value='$product_id'>
-                                <input type='hidden' name='product-name' value='$product_name'>
-                                <input type='hidden' name='product-price' value='$product_price'>
-                                <input type='hidden' name='product-bar-code' value='$product_bar_code'>
-                                <input type='hidden' name='product-amount' value='1'>
-                                <input type='submit' name='submit' class='item-basket' value='Do kosika'>
+                            <form class="action-cart">
+                                <input type="hidden" name="product-id" value="' . $product_id . '">
+                                <input type="hidden" name="product-name" value="' . $product_name . '">
+                                <input type="hidden" name="product-price" value="' . $product_price . '">
+                                <input type="hidden" name="product-bar-code" value="' . $product_bar_code . '">
+                                <input type="hidden" name="product-amount" value="1">
+                                <input type="submit" name="submit" class="item-basket" value="Do košíka">
                             </form>
                     </div>
-                </div>";
+                </div>';
     return $container;
 }
 
 function product_detail_container($product_id, $product_name, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked)
 {
-    $container = "<div class='detail-container'>
-                    <div class='item-description-container'>
-                        <h1>$product_name</h1>
-                        <img src='data:image/jpg;charset=utf8;base64,$product_image'>
-                        <div class='product-description'>$product_description</div>
+    $container = '<div class="detail-container">
+                    <div class="item-description-container">
+                        <h1>' . $product_name . '</h1>
+                        <img src="' . $product_image . '">
+                        <div class="product-description">' . $product_description . '</div>
                         </div>
-                        <div class='cart-container'>
-                            <div class='detail-item-price'>€$product_price</div>
-                            <div class='detail-item-stock stocked'>$product_stocked</div>
-                            <form class='action-cart'>
-                                <input type='hidden' name='product-id' value='$product_id'>
-                                <input type='hidden' name='product-name' value='$product_name'>
-                                <input type='hidden' name='product-price' value='$product_price'>
-                                <input type='hidden' name='product-bar-code' value='$product_bar_code'>
-                                <input type='number' name='product-amount' class='cart-input' min='1' max='999' value='1'>
-                                <div class='cart-arrows-container'>
-                                    <div class='cart-arrow-button increment' role='button'>+</div>
-                                    <div class='cart-arrow-button decrement' role='button'>-</div>
+                        <div class="cart-container">
+                            <div class="detail-item-price">€' . $product_price . '</div>
+                            <div class="detail-item-stock stocked">' . $product_stocked . '</div>
+                            <form class="action-cart">
+                                <input type="hidden" name="product-id" value="' . $product_id . '">
+                                <input type="hidden" name="product-name" value="' . $product_name . '">
+                                <input type="hidden" name="product-price" value="' . $product_price . '">
+                                <input type="hidden" name="product-bar-code" value="' . $product_bar_code . '">
+                                <input type="number" name="product-amount" class="cart-input" min="1" max="999" value="1">
+                                <div class="cart-arrows-container">
+                                    <div class="cart-arrow-button increment" role="button">+</div>
+                                    <div class="cart-arrow-button decrement" role="button">-</div>
                                 </div>
-                                <input type='submit' name='submit' class='cart-submit-button' value='Pridat do kosika'>
+                                <input type="submit" name="submit" class="cart-submit-button" value="Pridat do košíka">
                             </form>
                         </div>
                     </div>
-                </div>";
+                </div>';
     return $container;
 }
 

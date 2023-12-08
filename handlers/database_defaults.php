@@ -8,6 +8,7 @@ create_products_table($pdo);
 create_shopping_cart_table($pdo);
 create_users_table($pdo);
 create_admin_table($pdo);
+create_company_data_table($pdo);
 
 function create_eshop_database()
 {
@@ -99,6 +100,31 @@ function create_admin_table($pdo)
             user_postal_code INT(15) NULL,
             user_sign_up TIMESTAMP NULL,
             PRIMARY KEY(id)
+        );';
+        $pdo->exec($sql);
+        $pdo = null;
+    } catch (PDOException $e) {
+        die('An error occurred: ' . $e->getMessage());
+    }
+}
+
+function create_company_data_table($pdo)
+{
+    try {
+        $sql = 'CREATE TABLE IF NOT EXISTS company_data(
+            company_id INT AUTO_INCREMENT,
+            company_name VARCHAR(50) NULL,
+            company_ico INT(10) NULL,
+            company_dic INT(10) NULL,
+            company_icdph VARCHAR(15) NULL,
+            company_street VARCHAR(100) NULL,
+            company_house_number VARCHAR(15) NULL,
+            company_city VARCHAR(100) NULL,
+            company_postal_code INT(15) NULL,
+            company_phone_number INT(15) NULL,
+            company_bank_name VARCHAR(30) NULL,
+            company_bank_account VARCHAR(30) NULL,
+            PRIMARY KEY(company_id)
         );';
         $pdo->exec($sql);
         $pdo = null;
