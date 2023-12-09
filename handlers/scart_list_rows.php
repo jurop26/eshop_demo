@@ -27,7 +27,7 @@ if (!isset($_COOKIE['orderNo'])) {
                     $product_price = $row['product_price'];
                     $product_description = $row['product_description'];
                     $product_stocked = $row['product_stocked'] > 0 ? "Skladom" : "Nedostupne";
-                    $product_image = base64_encode($row['product_image']);
+                    $product_image = $row['product_image'];
                     $product_amount = getProductAmount($product_id, $products_list);
                     $product_price_total = $product_price * $product_amount;
                     $price_total[] = $product_price_total;
@@ -48,7 +48,7 @@ if (!isset($_COOKIE['orderNo'])) {
 function scart_row($product_id, $product_image, $product_stocked, $product_name, $product_amount, $product_price, $product_price_total)
 {
     $row = '<div class="scart-row-container">
-                <div class="scart-row-product-img"><img src="data:image/jpg;charset=utf8;base64,' . $product_image . '"></div>
+                <div class="scart-row-product-img"><img src=" ' . $product_image . '"></div>
                 <div class="scart-row-product-name">' . $product_name . '</div>
                 <div class="scart-row-product-stocked stocked">' . $product_stocked . '</div>
                 <div class="scart-row-product-price">€' . $product_price . '/ks</div>
