@@ -3,6 +3,11 @@ require_once '_config_session.php';
 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
+    if (isset($_SESSION["admin_username"]) && !empty($_SESSION["admin_username"]) && $_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') {
+        header("Location: ../admin_eshop.php");
+        die();
+    }
+
     // user already logged in, redirect back to home page
     if (isset($_SESSION["username"]) && !empty($_SESSION["username"])) {
         header("Location: ../index.php");
@@ -64,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') {
             header("Location: ../admin_eshop.php");
             $_SESSION['admin_username'] = $username;
-            $_SESSION['email'] = $user_email;
+            $_SESSION['admin_email'] = $user_email;
             die();
         }
     } catch (PDOException $e) {
