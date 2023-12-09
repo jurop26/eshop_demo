@@ -81,6 +81,11 @@ body, html {
     box-shadow: 5px 3px rgb(114, 105, 105);
     transition-duration: 0.4s;
 }
+
+.category-selected {
+    background-color: red;
+}
+
 .category-container input:hover {
     background-color: chartreuse;
 }

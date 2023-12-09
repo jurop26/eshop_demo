@@ -18,7 +18,11 @@ if (is_no_category($result)) {
     $categories = array_unique($categories);
 
     foreach ($categories as $category) {
-        $category_buttons .= '<input type="submit" name="category-button" value="' . $category . '">';
+        if (isset($_POST["category-button"]) && $_POST["category-button"] === $category) {
+            $category_buttons .= '<input type="submit" class="category-selected" name="category-button" value="' . $category . '">';
+        } else {
+            $category_buttons .= '<input type="submit" name="category-button" value="' . $category . '">';
+        }
     }
 
     echo '<form method="post" action="home">' . $category_buttons . '</form>';
