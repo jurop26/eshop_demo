@@ -48,7 +48,7 @@ if (!isset($_COOKIE['orderNo'])) {
 function scart_row($product_id, $product_image, $product_stocked, $product_name, $product_amount, $product_price, $product_price_total)
 {
     $row = '<div class="scart-row-container">
-                <div class="scart-row-product-img"><img src=" ' . $product_image . '"></div>
+                <div class="scart-row-product-img"><img class="product-image" src=" ' . $product_image . '"></div>
                 <div class="scart-row-product-name">' . $product_name . '</div>
                 <div class="scart-row-product-stocked stocked">' . $product_stocked . '</div>
                 <div class="scart-row-product-price">€' . $product_price . '/ks</div>

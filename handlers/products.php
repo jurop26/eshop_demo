@@ -76,7 +76,7 @@ function product_detail_container($product_id, $product_name, $product_descripti
     $container = '<div class="detail-container">
                     <div class="item-description-container">
                         <h1>' . $product_name . '</h1>
-                        <img src="' . $product_image . '">
+                        <img class="product-image" src="' . $product_image . '">
                         <div class="product-description">' . $product_description . '</div>
                         </div>
                         <div class="cart-container">
