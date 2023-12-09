@@ -30,7 +30,7 @@ function create_products_table($pdo)
             product_name VARCHAR(100) NULL,
             product_category VARCHAR(100) NULL,
             product_price VARCHAR(10) NULL,
-            product_description VARCHAR(1000) NULL,
+            product_description LONGTEXT NULL,
             product_brand VARCHAR(40) NULL,
             product_stocked VARCHAR(10) NULL,
             product_sales VARCHAR(10) NULL,

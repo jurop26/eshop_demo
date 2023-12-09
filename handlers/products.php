@@ -47,8 +47,8 @@ if (is_no_products($result)) {
 function product_container($product_id, $product_name, $product_price, $product_image, $product_bar_code, $product_stocked)
 {
     $container = '<div class="item-container">
-                    <a href="index.php?product_id=' . $product_id . '" class="product-image">
-                        <img src="' . $product_image . '">
+                    <a href="index.php?product_id=' . $product_id . '" class="product-image-href">
+                        <img class="product-image" src="' . $product_image . '">
                     </a>
                     <a href="index.php?product_id=' . $product_id . '">
                         <div class="item-name">' . $product_name . '</div>
