@@ -14,19 +14,29 @@ require_once 'handlers/_config_session.php';
 
 <body>
     <div class="main-container">
-        <?php include('components/header.php') ?>
+        <?php include_once('components/header.php') ?>
         <div>
             <hr>
         </div>
         <div class="content-container">
             <div class="category-container">
-                <?php include('handlers/categories.php') ?>
+                <?php
+                if (isset($_SESSION["errors"])) {
+                    foreach ($_SESSION["errors"] as $error) {
+                        echo $error;
+                    }
+                    unset($_SESSION["errors"]);
+                }
+                include_once('handlers/categories.php')
+                ?>
             </div>
             <div class="products-container">
-                <?php include('handlers/products.php') ?>
+                <?php
+                include_once('handlers/products.php');
+                ?>
             </div>
         </div>
-        <?php include('components/footer.php'); ?>
+        <?php include_once('components/footer.php'); ?>
     </div>
 </body>
 

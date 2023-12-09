@@ -32,16 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $product_image_url = upload_image($product_image);
-    echo $product_image_url;
 
-    // add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_image);
-    // header("Location: " . $_SERVER["HTTP_REFERER"]);
+    add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_image_url);
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
 } else {
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die();
 }
 
-function add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_image)
+function add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_image_url)
 {
     require_once 'connections/dbh.php';
     try {
@@ -53,7 +52,7 @@ function add_product_to_database($product_barcode, $product_name, $product_categ
         $stmt->bindParam(":product_price", $product_price, PDO::PARAM_STR);
         $stmt->bindParam(":product_brand", $product_brand);
         $stmt->bindParam(":product_description", $product_description);
-        $stmt->bindParam(":product_image", $product_image);
+        $stmt->bindParam(":product_image", $product_image_url);
         $stmt->execute();
         $pdo = null;
         $stmt = null;
@@ -112,8 +111,9 @@ function upload_image($product_image)
 
     $sucess = move_uploaded_file($product_image["tmp_name"], $targetFile);
 
-    if ($sucess) return $fileType;
-    else false;
+    // if ($sucess) return $targetFile;
+    // else false;
+    return ltrim($targetFile, "../");
 }
 
 function is_fake_image($product_image)

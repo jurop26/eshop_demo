@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION["username"]) && empty($_SESSION["username"])) {
+if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
     header("Location: admin.php");
     die();
 }

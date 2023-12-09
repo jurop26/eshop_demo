@@ -16,31 +16,31 @@ if (isset($_POST['category-button'])) {
 }
 unset($_GET['product_id']);
 
-try {
-    require_once 'connections/dbh.php';
+require_once 'connections/dbh.php';
 
-    $result = get_products_details($pdo, $sql);
+$result = get_products_details($pdo, $sql);
 
-    if ($result) {
-        foreach ($result as $row) {
-            $product_id = $row['product_id'];
-            $product_bar_code = $row['product_bar_code'];
-            $product_name = $row['product_name'];
-            $product_price = $row['product_price'];
-            $product_description = $row['product_description'];
-            $product_stocked = $row['product_stocked'] > 0 ? "Skladom" : "Nedostupne";
-            $product_image = $row['product_image'];
-            // $product_image = base64_encode($row['product_image']);
+if (is_no_products($result)) {
 
-            if (!$product_detail_view) {
-                echo product_container($product_id, $product_name, $product_price, $product_image, $product_bar_code, $product_stocked);
-            } else {
-                echo product_detail_container($product_id, $product_name, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked);
-            }
+    echo "Databáza neobsahuje žiadne produkty";
+} else {
+
+    foreach ($result as $row) {
+        $product_id = $row['product_id'];
+        $product_bar_code = $row['product_bar_code'];
+        $product_name = $row['product_name'];
+        $product_price = $row['product_price'];
+        $product_description = $row['product_description'];
+        $product_stocked = $row['product_stocked'] > 0 ? "Skladom" : "Nedostupne";
+        $product_image = $row['product_image'];
+        // $product_image = base64_encode($row['product_image']);
+
+        if (!$product_detail_view) {
+            echo product_container($product_id, $product_name, $product_price, $product_image, $product_bar_code, $product_stocked);
+        } else {
+            echo product_detail_container($product_id, $product_name, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked);
         }
     }
-} catch (PDOException $e) {
-    die("Chyba pri nacitani produktov: ") . $e->getMessage();
 }
 
 // Product container - square structure
@@ -102,11 +102,24 @@ function product_detail_container($product_id, $product_name, $product_descripti
 
 function get_products_details($pdo, $sql)
 {
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $pdo = null;
-    $stmt = null;
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pdo = null;
+        $stmt = null;
 
-    return $result;
+        return $result;
+    } catch (PDOException $e) {
+        die("Chyba pri nacitani produktov: ") . $e->getMessage();
+    }
+}
+
+function is_no_products($result)
+{
+    if (!$result) {
+        return true;
+    } else {
+        false;
+    }
 }

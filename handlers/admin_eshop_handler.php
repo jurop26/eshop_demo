@@ -24,6 +24,9 @@ function get_products_list($result, $rows)
     $list = "";
     $index = 1;
 
+    // IF PRODUCTS LIST IS EMPTY THEN return empty list
+    if (!$result) return;
+    // IF PRODUCTS LIST IS FILLED THEN return list of products
     foreach ($result as $product) {
         $edit_button = '<td><form action="' . $_SERVER["PHP_SELF"] . '" method="post"><input type="hidden" name="product-id" value="' . $product["product_id"] . '" /><input type="submit" value="Edit" /></form></td>';
         $delete_button = '<td><form action=""><input type="hidden" value="' . $product["product_id"] . '"><input type="submit" value="Delete" /></form></td>';

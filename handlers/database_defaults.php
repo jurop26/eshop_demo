@@ -30,7 +30,8 @@ function create_products_table($pdo)
             product_name VARCHAR(100) NULL,
             product_category VARCHAR(100) NULL,
             product_price VARCHAR(10) NULL,
-            product_description VARCHAR(250) NULL,
+            product_description VARCHAR(1000) NULL,
+            product_brand VARCHAR(40) NULL,
             product_stocked VARCHAR(10) NULL,
             product_sales VARCHAR(10) NULL,
             product_image VARCHAR(100) NULL,
@@ -46,7 +47,7 @@ function create_products_table($pdo)
 function create_shopping_cart_table($pdo)
 {
     try {
-        $sql = 'CREATE TABLE IF NOT EXISTS shopping_cart(
+        $sql = 'CREATE TABLE IF NOT EXISTS shopping_carts(
             product_id INT AUTO_INCREMENT,
             s_cart_uniqid VARCHAR(50) NULL,
             s_cart_json_data LONGTEXT NULL,
