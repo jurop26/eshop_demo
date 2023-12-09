@@ -41,6 +41,10 @@ require_once 'handlers/_config_session.php';
                     <input type="text" name="product-brand" id="product-brand">
                 </li>
                 <li>
+                    <label for="product-stocked">Počet kusov skladom: </label>
+                    <input type="text" name="product-stocked" id="product-stocked"></input>
+                </li>
+                <li>
                     <label for="product-description">Popis produktu: </label>
                     <textarea type="text" name="product-description" id="product-description"></textarea>
                 </li>
