@@ -1,2 +1,3 @@
 <?php
-echo password_hash("admin", PASSWORD_DEFAULT);
+$array = [1, 2, 3, 4];
+echo count($array);

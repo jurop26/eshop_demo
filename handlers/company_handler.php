@@ -3,52 +3,66 @@
 $json_company_data = file_get_contents('php://input');
 $company_data = json_decode($json_company_data, true);
 
-$insert = '(' . implode(', ', array_map(function ($key) {
-    return $key;
-}, array_keys($company_data))) . ')';
+include('connections/dbh.php');
 
-$values = '(' . implode(', ', array_map(function ($value) {
-    return '\'' . $value . '\'';
-}, array_values($company_data))) . ')';
+$company_exists = get_company_data($pdo, $sql);
 
-$set = implode(', ', array_map(function ($key, $value) {
-    return $key . '= \'' . $value . '\'';
-}, array_keys($company_data), array_values($company_data)));
+if (!$company_exists) {
+    insert_company_data($pdo, $company_data);
+} else {
+    update_company_data($pdo, $company_data);
+}
+$message = array('message' => 'ok');
+die(json_encode($message));
 
-try {
-    include('connections/database.php');
-    $sql = "CREATE TABLE IF NOT EXISTS  company_data (
-        company_name varchar(30) NULL,
-        company_ico varchar(10) NULL,
-        company_dic varchar(10) NULL,
-        company_icdph varchar(10) NULL,
-        company_street varchar(40) NULL,
-        company_house_number varchar(10) NULL,
-        company_city varchar(40) NULL,
-        company_postal_code varchar(10) NULL
-    )";
-    $result = mysqli_query($conn, $sql);
-    // mysqli_close($conn);
+// FUNCTIONS TO HANDLE DATABASE DATA
+function insert_company_data($pdo, $company_data)
+{
+    $insert = '(' . implode(', ', array_map(function ($key) {
+        return $key;
+    }, array_keys($company_data))) . ')';
+    $bind_params = '(' . implode(',', array_fill(0, count($company_data), '?')) . ')';
 
-
-    // include('connections/database.php');
-    $sql = "SELECT * FROM company_data";
-    $result = mysqli_query($conn, $sql);
-    // mysqli_close($conn);
-
-    if (!mysqli_num_rows($result)) {
-        $sql = "INSERT INTO company_data " . $insert . " VALUES " . $values;
-        $sql = "INSERT INTO company_data (company_dic VALUES ('gfjhf')";
-    } else {
-        $sql = "UPDATE company_data SET " . $set;
+    try {
+        $sql = "INSERT INTO company_data " . $insert . " VALUES " . $bind_params;
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array_values($company_data));
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Chyba pri zapisovaní do INSERT company data: " . $e->getMessage());
     }
-    // include('connections/database.php');
-    mysqli_query($conn, $sql);
-    mysqli_close($conn);
+}
 
+function update_company_data($pdo, $company_data)
+{
+    $set = implode(', ', array_map(function ($key) {
+        return $key . ' = :' . $key;
+    }, array_keys($company_data)));
 
-    $message = array('message' => 'ok');
-    echo json_encode($message);
-} catch (Exception $e) {
-    echo $e;
+    try {
+        $sql = "UPDATE company_data SET " . $set;
+        $stmt = $pdo->prepare($sql);
+        foreach ($company_data as $key => $value) {
+            $stmt->bindValue(":" . $key, $value, PDO::PARAM_STR);
+        }
+        $stmt->execute();
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Chyba pri zapisovaní do UPDATE company data: " . $e->getMessage());
+    }
+}
+
+function get_company_data($pdo, $sql)
+{
+    try {
+        $sql = "SELECT * FROM company_data";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    } catch (PDOException $e) {
+        die("Chyba pri načítavaní firemných údajov: " . $e->getMessage());
+    }
 }

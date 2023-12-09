@@ -13,8 +13,8 @@ require_once 'handlers/_config_session.php';
 </head>
 
 <body>
-    <?php include 'components/admin_header.php'; ?>
-    <?php include 'components/admin_navbar.php'; ?>
+    <?php include_once 'components/admin_header.php'; ?>
+    <?php include_once 'components/admin_navbar.php'; ?>
 
     <hr>
     <div class="main-container">

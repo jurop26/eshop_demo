@@ -112,16 +112,16 @@ function create_company_data_table($pdo)
 {
     try {
         $sql = 'CREATE TABLE IF NOT EXISTS company_data(
-            company_id INT AUTO_INCREMENT,
             company_name VARCHAR(50) NULL,
-            company_ico INT(10) NULL,
-            company_dic INT(10) NULL,
-            company_icdph VARCHAR(15) NULL,
+            company_ico VARCHAR(15) NULL,
+            company_dic VARCHAR(20) NULL,
+            company_icdph VARCHAR(20) NULL,
             company_street VARCHAR(100) NULL,
             company_house_number VARCHAR(15) NULL,
-            company_city VARCHAR(100) NULL,
-            company_postal_code INT(15) NULL,
-            company_phone_number INT(15) NULL,
+            company_city VARCHAR(50) NULL,
+            company_postal_code VARCHAR(15) NULL,
+            company_phone_number VARCHAR(20) NULL,
+            company_mob_number VARCHAR(20) NULL,
             company_bank_name VARCHAR(30) NULL,
             company_bank_account VARCHAR(30) NULL,
             PRIMARY KEY(company_id)

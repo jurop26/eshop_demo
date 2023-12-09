@@ -48,13 +48,25 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         }
 
         $username = $result['user_first_name'] . " " . $result['user_last_name'];
-        $_SESSION['username'] = $username;
-        $_SESSION['email'] = $user_email;
 
-        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/login.php') header("Location: ../index.php");
-        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') header("Location: ../admin_eshop.php");
-        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/scart_user_address.php') header("Location: ../scart_user_address.php");
-        die();
+        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/login.php') {
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $user_email;
+            header("Location: ../index.php");
+            die();
+        }
+        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/scart_user_address.php') {
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $user_email;
+            header("Location: ../scart_user_address.php");
+            die();
+        }
+        if ($_SERVER["HTTP_REFERER"] === 'http://localhost/website/admin.php') {
+            header("Location: ../admin_eshop.php");
+            $_SESSION['admin_username'] = $username;
+            $_SESSION['email'] = $user_email;
+            die();
+        }
     } catch (PDOException $e) {
         echo "No user found:" . $e->getMessage();
     }
