@@ -28,6 +28,7 @@ if (is_no_products($result)) {
         $product_id = $row['product_id'];
         $product_bar_code = $row['product_bar_code'];
         $product_name = $row['product_name'];
+        $product_category = $row['product_category'];
         $product_price = $row['product_price'];
         $product_description = $row['product_description'];
         $product_stocked = $row['product_stocked'] > 0 ? "Skladom" : "Nedostupne";
@@ -37,7 +38,7 @@ if (is_no_products($result)) {
         if (!$product_detail_view) {
             echo product_container($product_id, $product_name, $product_price, $product_image, $product_bar_code, $product_stocked);
         } else {
-            echo product_detail_container($product_id, $product_name, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked);
+            echo product_detail_container($product_id, $product_name, $product_category, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked);
         }
     }
 }
@@ -70,7 +71,7 @@ function product_container($product_id, $product_name, $product_price, $product_
     return $container;
 }
 
-function product_detail_container($product_id, $product_name, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked)
+function product_detail_container($product_id, $product_name, $product_category, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked)
 {
     $container = '<div class="detail-container">
                     <div class="item-description-container">

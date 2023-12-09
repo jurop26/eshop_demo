@@ -1,5 +1,11 @@
 <?php
 
+// CHECKING IF ADMIN IS LOGGED IN, IF NOT REDIRECTED
+if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
+    header("Location: admin.php");
+    die();
+}
+
 $json_company_data = file_get_contents('php://input');
 $company_data = json_decode($json_company_data, true);
 

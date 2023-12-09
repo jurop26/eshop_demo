@@ -1,5 +1,11 @@
 <?php
 
+// CHECKING IF ADMIN IS LOGGED IN, IF NOT REDIRECTED
+if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
+    header("Location: admin.php");
+    die();
+}
+
 $order_by_option = ["ABC" => "product_name", "category" => "product_category", "sales" => "product_sales", "stock" => "product_stocked", "price" => "product_price", "brand" => "product_brand"];
 
 if (
