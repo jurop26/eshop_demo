@@ -21,7 +21,6 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['email'])) {
         </div>
         <div class="submit-container">
             <input type="submit" form="form-row-signin" value="Prihlásiť">
-            <button><a href="register.php">Registrovať</a></button>
         </div>
         </form>';
 }

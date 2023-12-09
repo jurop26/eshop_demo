@@ -25,7 +25,7 @@ if ($result) {
                 $product_price = $row['product_price'];
                 $product_description = $row['product_description'];
                 $product_stocked = $row['product_stocked'] > 0 ? "Skladom" : "Nedostupne";
-                $product_image = base64_encode($row['product_image']);
+                $product_image = $row['product_image'];
                 $product_amount = getProductAmount($product_id, $products_list);
                 $product_price_total = number_format(($product_price * $product_amount), 2, '.');
                 $price_total[] = $product_price_total;
@@ -99,11 +99,9 @@ function get_shopping_cart($pdo, $uniqid)
     }
 }
 
-
 function getProductIds($products_list)
 {
     $ids = array_column($products_list, 'product_id');
-    // return '(' . implode(',', $ids) . ')';
     return $ids;
 }
 

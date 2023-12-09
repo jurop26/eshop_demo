@@ -21,7 +21,6 @@ require_once 'connections/dbh.php';
 $result = get_products_details($pdo, $sql);
 
 if (is_no_products($result)) {
-
     echo "Databáza neobsahuje žiadne produkty";
 } else {
 
