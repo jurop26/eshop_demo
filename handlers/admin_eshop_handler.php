@@ -1,3 +1,5 @@
+<script src="admin_eshop.js"></script>
+
 <?php
 
 // CHECKING IF ADMIN IS LOGGED IN, IF NOT REDIRECTED
@@ -35,8 +37,22 @@ function get_products_list($result, $rows)
     if (!$result) return;
     // IF PRODUCTS LIST IS FILLED THEN return list of products
     foreach ($result as $product) {
-        $edit_button = '<td><form action="' . $_SERVER["PHP_SELF"] . '" method="post"><input type="hidden" name="product-id" value="' . $product["product_id"] . '" /><input type="submit" value="Edit" /></form></td>';
-        $delete_button = '<td><form action="admin_eshop_delete_handler.php"><input type="hidden" value="' . $product["product_id"] . '"><input type="submit" value="Delete" /></form></td>';
+        $edit_button = '
+            <td>
+                <form action="' . $_SERVER["PHP_SELF"] . '" method="post">
+                    <input type="hidden" name="product-id" value="' . $product["product_id"] . '" />
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>';
+
+        $delete_button = '
+            <td>
+                <form action="handlers/admin_delete_product_handler.php" method="post" id="admin-delete-product' . $product["product_id"] . '">
+                    <input type="hidden"  name="product-id" value="' . $product["product_id"] . '">
+                    <input type="submit" form="admin-delete-product' . $product["product_id"] . '" value="Delete" />
+                </form>
+            </td>';
+
         if ($index > $rows) break;
         $list .= '<tr><td>'
             . $product["product_bar_code"] . '</td><td>'
