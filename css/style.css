@@ -140,8 +140,8 @@ body, html {
 }
 
 .item-stock {
-    color: green;
-    font-size: small;
+    /* color: green; */
+    font-size: smaller;
 }
 
 .item-price-basket-container {
@@ -221,8 +221,10 @@ a {
 }
 /*-------------------- Detail view style --------------*/
 .detail-container{
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;    
 }
 
@@ -249,7 +251,7 @@ a {
 }
 
 .detail-item-stock {
-    color: green;
+    /* color: green; */
     padding-top:30px;
 }
 

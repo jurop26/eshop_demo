@@ -111,7 +111,7 @@ shoppingCartImage.forEach((image) => image.addEventListener('click', () => locat
 // Change STOCKED color product if it is available or NOT
 const stocked = document.querySelectorAll('.stocked')
 stocked.forEach(div => {
-    if (div.textContent === 'Skladom')  {
+    if (div.dataset.stocked === 'Skladom')  {
         div.style.color = 'green'
     } else {
         div.style.color = 'red'

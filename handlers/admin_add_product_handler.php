@@ -19,6 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // $product_image = file_get_contents($_FILES["product-image"]["tmp_name"]) ?: null;
     $product_image = $_FILES["product-image"] ?: null;
 
+    // var_dump($product_image['error']);
+    // die();
+
     $product_price = floatval(str_replace(',', '.', $product_price));
 
     // ERROR HANDLERS
@@ -80,6 +83,9 @@ function is_input_empty($product_barcode, $product_name, $product_category, $pro
 
 function upload_image($product_image)
 {
+    // NO IMAGE ADDED TO THE PRODUCT, DEFAULT IMAGE ADEDD AUTOMATICALLY
+    if ($product_image["tmp_name"] === '') return 'uploads/no-image-icon.png';
+
     // UPLOAD ERROR HANDLER
     $errors = [];
 
@@ -119,8 +125,6 @@ function upload_image($product_image)
 
     $sucess = move_uploaded_file($product_image["tmp_name"], $targetFile);
 
-    // if ($sucess) return $targetFile;
-    // else false;
     return ltrim($targetFile, "../");
 }
 

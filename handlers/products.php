@@ -53,7 +53,7 @@ function product_container($product_id, $product_name, $product_price, $product_
                     <a href="index.php?product_id=' . $product_id . '">
                         <div class="item-name">' . $product_name . '</div>
                     </a>
-                    <div class="item-stock stocked">' . $product_stocked . '</div>
+                    <div class="item-stock stocked" data-stocked="' . $product_stocked . '">' . $product_stocked . '</div>
                     <div class="item-price-basket-container">
                         <div class="item-price">
                             €' . $product_price . '
@@ -77,24 +77,29 @@ function product_detail_container($product_id, $product_name, $product_category,
                     <div class="item-description-container">
                         <h1>' . $product_name . '</h1>
                         <img class="product-image" src="' . $product_image . '">
-                        <div class="product-description">' . $product_description . '</div>
+                        <div class="product-description">
+                            ' . $product_description . '
                         </div>
-                        <div class="cart-container">
-                            <div class="detail-item-price">€' . $product_price . '</div>
-                            <div class="detail-item-stock stocked">' . $product_stocked . '</div>
-                            <form class="action-cart">
-                                <input type="hidden" name="product-id" value="' . $product_id . '">
-                                <input type="hidden" name="product-name" value="' . $product_name . '">
-                                <input type="hidden" name="product-price" value="' . $product_price . '">
-                                <input type="hidden" name="product-bar-code" value="' . $product_bar_code . '">
-                                <input type="number" name="product-amount" class="cart-input" min="1" max="999" value="1">
-                                <div class="cart-arrows-container">
-                                    <div class="cart-arrow-button increment" role="button">+</div>
-                                    <div class="cart-arrow-button decrement" role="button">-</div>
-                                </div>
-                                <input type="submit" name="submit" class="cart-submit-button" value="Pridat do košíka">
-                            </form>
+                    </div>
+                    <div class="cart-container">
+                        <div class="detail-item-price">
+                            €' . $product_price . '
                         </div>
+                        <div class="detail-item-stock stocked" data-stocked="' . $product_stocked . '">
+                            ' . $product_stocked . '
+                        </div>
+                        <form class="action-cart">
+                            <input type="hidden" name="product-id" value="' . $product_id . '">
+                            <input type="hidden" name="product-name" value="' . $product_name . '">
+                            <input type="hidden" name="product-price" value="' . $product_price . '">
+                            <input type="hidden" name="product-bar-code" value="' . $product_bar_code . '">
+                            <input type="number" name="product-amount" class="cart-input" min="1" max="999" value="1">
+                            <div class="cart-arrows-container">
+                                <div class="cart-arrow-button increment" role="button">+</div>
+                                <div class="cart-arrow-button decrement" role="button">-</div>
+                            </div>
+                            <input type="submit" name="submit" class="cart-submit-button" value="Pridat do košíka">
+                        </form>
                     </div>
                 </div>';
     return $container;
