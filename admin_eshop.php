@@ -55,8 +55,6 @@ require_once 'handlers/_config_session.php';
                 }
                 echo $direction_option;
                 ?>
-                <option value="DESC">Vzostupne</option>
-                <option value="ASC">Zostupne</option>
             </select>
         </div>
         <div>
