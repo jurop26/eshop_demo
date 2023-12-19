@@ -13,9 +13,11 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] === "POST") 
     require_once 'connections/dbh.php';
 
     $product_id = $_POST["product-id"];
+    $product_image_url = $_POST["product-image"];
 
     if (!is_id_empty($product_id)) {
         delete_product($product_id, $pdo);
+        delete_product_image($product_image_url);
     }
 
     header("Location:" . $_SERVER["HTTP_REFERER"]);
@@ -39,4 +41,11 @@ function delete_product($product_id, $pdo)
     $stmt->execute();
     $pdo = null;
     $stmt = null;
+}
+
+function delete_product_image($product_image_url)
+{
+    if ($product_image_url === 'uploads/no-image-icon.png') return;
+
+    unlink('../' . $product_image_url);
 }

@@ -49,6 +49,7 @@ function get_products_list($result, $rows)
             <td>
                 <form action="handlers/admin_delete_product_handler.php" method="post" id="admin-delete-product' . $product["product_id"] . '">
                     <input type="hidden"  name="product-id" value="' . $product["product_id"] . '">
+                    <input type="hidden"  name="product-image" value="' . $product["product_image"] . '">
                     <input type="submit" form="admin-delete-product' . $product["product_id"] . '" value="Delete" />
                 </form>
             </td>';
