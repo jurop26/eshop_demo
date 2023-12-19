@@ -467,6 +467,8 @@ footer {
     display: block;
     align-self: center;
     width: 80%;
+    max-width: 1200px;
+    min-width: 500px;
     padding: 20px 0; 
 }
 

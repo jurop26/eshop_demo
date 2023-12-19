@@ -38,36 +38,46 @@ function get_products_list($result, $rows)
     // IF PRODUCTS LIST IS FILLED THEN return list of products
     foreach ($result as $product) {
         $edit_button = '
-            <td>
                 <form action="' . $_SERVER["PHP_SELF"] . '" method="post">
                     <input type="hidden" name="product-id" value="' . $product["product_id"] . '" />
                     <input type="submit" value="Edit" />
-                </form>
-            </td>';
+                </form>';
 
         $delete_button = '
-            <td>
                 <form action="handlers/admin_delete_product_handler.php" method="post" id="admin-delete-product' . $product["product_id"] . '">
                     <input type="hidden"  name="product-id" value="' . $product["product_id"] . '">
                     <input type="hidden"  name="product-image" value="' . $product["product_image"] . '">
                     <input type="submit" form="admin-delete-product' . $product["product_id"] . '" value="Delete" />
-                </form>
-            </td>';
+                </form>';
 
         if ($index > $rows) break;
-        $list .= '<tr><td>'
-            . $product["product_bar_code"] . '</td><td>'
-            . $product["product_name"] . '</td><td> €'
-            . $product["product_price"] . '</td><td>'
-            . $product["product_category"] . '</td><td>'
-            . $product["product_brand"] . '</td><td>'
-            . $product["product_stocked"] . '</td><td>'
-            . $product["product_sales"] . '</td>'
-            . $edit_button
-            . $delete_button . '</tr>';
+        $list .= '
+            <tr>
+                <td>' . $product["product_bar_code"] . '</td>
+                <td>' . $product["product_name"] . '</td>
+                <td> €' . $product["product_price"] . '</td>
+                <td>' . $product["product_category"] . '</td>
+                <td>' . $product["product_brand"] . '</td>
+                <td>' . $product["product_stocked"] . '</td>
+                <td>' . $product["product_sales"] . '</td>
+                <td>' . $edit_button . ' </td>
+                <td>' . $delete_button . '</td>
+            </tr>';
         $index++;
     }
-    return '<table class="products-list-table"><tr><th>BAR-CODE</th><th>NÁZOV PRODUKTU</th><th>CENA</th><th>Kategória</th><th>ZNAČKA</th><th>SKLADOM</th><th>Predaj</th><th colspan="2"></th></tr>' . $list . '</table>';
+    return '<table class="products-list-table">
+                <tr>
+                    <th>BAR-CODE</th>
+                    <th>NÁZOV PRODUKTU</th>
+                    <th>CENA</th>
+                    <th>Kategória</th>
+                    <th>ZNAČKA</th>
+                    <th>SKLADOM</th>
+                    <th>Predaj</th><th colspan="2">
+                    </th>
+                </tr>
+                    ' . $list . '
+            </table>';
 }
 
 function get_products($order_by, $direction)
