@@ -74,7 +74,7 @@ function product_container($product_id, $product_name, $product_price, $product_
 function product_detail_container($product_id, $product_name, $product_category, $product_description, $product_price, $product_image, $product_bar_code, $product_stocked)
 {
     $container = '<div class="detail-container">
-                    <div class="item-description-container">
+                    <div class="detail-description-container">
                         <h1>' . $product_name . '</h1>
                         <img class="product-image" src="' . $product_image . '">
                         <div class="product-description">
