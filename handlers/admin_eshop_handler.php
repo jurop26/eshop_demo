@@ -1,4 +1,4 @@
-<script src="admin_eshop.js"></script>
+<!-- <script src="admin_eshop.js"></script> -->
 
 <?php
 
@@ -61,7 +61,7 @@ function get_products_list($result, $rows)
                 <td>' . $product["product_stocked"] . '</td>
                 <td>' . $product["product_sales"] . '</td>
                 <td>' . $edit_button . ' </td>
-                <td>' . $delete_button . '</td>
+                <td class="product-delete-button-tableData">' . $delete_button . '</td>
             </tr>';
         $index++;
     }
