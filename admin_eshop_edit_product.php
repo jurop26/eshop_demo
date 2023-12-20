@@ -15,7 +15,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
-    <script src="handlers/scripts/admin_eshop.js" defer></script>
+    <script src="handlers/scripts/admin_eshop_image_handler.js" defer></script>
     <title>Admin Edit product</title>
 </head>
 

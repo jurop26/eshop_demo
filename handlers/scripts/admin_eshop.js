@@ -12,11 +12,3 @@ function deleteProduct(e) {
         console.log('Product delete cancel')
     }
 }
-
-//---------------------------- UPLOAD IMAGE HANDLING-------------------------------------------------
-const currentImage = document.querySelector("#product-image-preview")
-const inputImage = document.querySelector('#product-image-file')
-
-inputImage.onchange = () => {console.log('Image changed')
-    currentImage.src = URL.createObjectURL(inputImage.files[0])
-}
