@@ -14,7 +14,6 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
-    <!-- <script src="handlers/scripts/admin.js" defer></script> -->
     <title>Admin Add product</title>
 </head>
 
@@ -48,7 +47,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
                 </li>
                 <li>
                     <label for="product-stocked">Počet kusov skladom: </label>
-                    <input type="text" name="product-stocked" id="product-stocked"></input>
+                    <input type="text" name="product-stocked" id="product-stocked">
                 </li>
                 <li>
                     <label for="product-description">Popis produktu: </label>
@@ -60,7 +59,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
                     <input type="file" name="product-image" id="product-image" accept="image/png, image/jpeg, image/jpg">
                 </li>
                 <li>
-                    <label for=""></label>
+                    <label></label>
                     <input type="submit" form="add-product-form" value="Pridať nový produkt">
                 </li>
             </ul>

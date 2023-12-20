@@ -1,5 +1,3 @@
-<!-- <script src="admin_eshop.js"></script> -->
-
 <?php
 
 // CHECKING IF ADMIN IS LOGGED IN, IF NOT REDIRECTED
@@ -38,9 +36,9 @@ function get_products_list($result, $rows)
     // IF PRODUCTS LIST IS FILLED THEN return list of products
     foreach ($result as $product) {
         $edit_button = '
-                <form action="' . $_SERVER["PHP_SELF"] . '" method="post">
+                <form action="admin_eshop_edit_product.php" method="post" id="admin-edit-product' . $product["product_id"] . '">
                     <input type="hidden" name="product-id" value="' . $product["product_id"] . '" />
-                    <input type="submit" value="Edit" />
+                    <input type="submit" form="admin-edit-product' . $product["product_id"] . '" value="Edit" />
                 </form>';
 
         $delete_button = '
