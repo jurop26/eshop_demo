@@ -30,6 +30,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
                 header("Location: " . $_SERVER["HTTP_REFERER"]);
             }
 
+            // IF POST PRODUCT IS POSTED OR ERROR OCCURED WHEN EDITING AND STORING TO DB, ERRORS REDIRECT BACK TO HERE
             $product_id = $_POST["product-id"];
 
             require_once 'handlers/connections/dbh.php';
@@ -73,7 +74,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
 function edit_product_form($product_id, $product_bar_code, $product_name, $product_category, $product_price, $product_brand, $product_stocked, $product_description, $product_image)
 {
     $container = '
-                <form action="handlers/admin_edit_product_handler.php" method="post" enctype="multipart/form-data" id="edit-product-form">
+                <form action="handlers/admin_add_product_handler.php" method="post" enctype="multipart/form-data" id="edit-product-form">
                     <ul>
                         <li>
                             <label for="product-barcode">Bar code: </label>

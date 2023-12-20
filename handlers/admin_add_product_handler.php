@@ -9,6 +9,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    $product_id = filter_input(INPUT_POST, 'product-id', FILTER_SANITIZE_NUMBER_INT);
     $product_barcode = filter_input(INPUT_POST, 'product-barcode', FILTER_SANITIZE_SPECIAL_CHARS);
     $product_name = filter_input(INPUT_POST, 'product-name', FILTER_SANITIZE_SPECIAL_CHARS);
     $product_category = filter_input(INPUT_POST, 'product-category', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -16,11 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $product_brand = filter_input(INPUT_POST, 'product-brand', FILTER_SANITIZE_SPECIAL_CHARS);
     $product_stocked = filter_input(INPUT_POST, 'product-stocked', FILTER_SANITIZE_SPECIAL_CHARS);
     $product_description = filter_input(INPUT_POST, 'product-description', FILTER_SANITIZE_SPECIAL_CHARS);
-    // $product_image = file_get_contents($_FILES["product-image"]["tmp_name"]) ?: null;
-    $product_image = $_FILES["product-image"] ?: null;
-
-    // var_dump($product_image['error']);
-    // die();
+    $product_image_old = filter_input(INPUT_POST, 'product-image-old', FILTER_SANITIZE_URL);
+    $product_image = $_FILES["product-image"];
 
     $product_price = floatval(str_replace(',', '.', $product_price));
 
@@ -41,13 +39,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die();
     }
 
-    $product_image_url = upload_image($product_image);
+    $product_image_url = upload_image($product_image, $product_image_old);
 
-    add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_stocked, $product_image_url);
-    header("Location: " . $_SERVER["HTTP_REFERER"]);
+    if (!empty($product_id) || !is_null($product_id)) {
+        edit_product_in_database($product_id, $product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_stocked, $product_image_url);
+        header("Location: ../admin_eshop.php");
+    } else {
+        add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_stocked, $product_image_url);
+        header("Location: ../admin_eshop.php");
+    }
 } else {
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die();
+}
+
+function edit_product_in_database($product_id, $product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_stocked, $product_image_url)
+{
+    require_once 'connections/dbh.php';
+    try {
+        $sql = "UPDATE products SET product_bar_code = :product_barcode, product_name = :product_name, product_price = :product_price, product_category = :product_category, product_brand = :product_brand, product_description = :product_description, product_stocked = :product_stocked, product_image = :product_image WHERE product_id = :product_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(":product_id", $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(":product_barcode", $product_barcode, PDO::PARAM_STR);
+        $stmt->bindParam(":product_name", $product_name, PDO::PARAM_STR);
+        $stmt->bindParam(":product_category", $product_category, PDO::PARAM_STR);
+        $stmt->bindParam(":product_price", $product_price, PDO::PARAM_STR);
+        $stmt->bindParam(":product_brand", $product_brand, PDO::PARAM_STR);
+        $stmt->bindParam(":product_description", $product_description, PDO::PARAM_STR);
+        $stmt->bindParam(":product_stocked", $product_stocked, PDO::PARAM_STR);
+        $stmt->bindParam(":product_image", $product_image_url, PDO::PARAM_STR);
+        $stmt->execute();
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Chyba, nepodarilo sa upraviť produkt v databáze: " . $e->getMessage());
+    }
 }
 
 function add_product_to_database($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_stocked, $product_image_url)
@@ -74,17 +100,18 @@ function add_product_to_database($product_barcode, $product_name, $product_categ
 
 function is_input_empty($product_barcode, $product_name, $product_category, $product_price, $product_brand, $product_description, $product_stocked)
 {
-    if (empty($product_barcode || empty($product_name)) || empty($product_category) || empty($product_price) || empty($product_brand) || empty($product_description) || empty($product_stocked)) {
+    if (empty($product_barcode || empty($product_name)) || empty($product_category) || empty($product_price) || empty($product_brand) || empty($product_description) || (empty($product_stocked) && $product_stocked != 0)) {
         return true;
     } else {
         return false;
     }
 }
 
-function upload_image($product_image)
+function upload_image($product_image, $product_image_old)
 {
     // NO IMAGE ADDED TO THE PRODUCT, DEFAULT IMAGE ADEDD AUTOMATICALLY
-    if ($product_image["tmp_name"] === '') return 'uploads/no-image-icon.png';
+    if (empty($product_image["tmp_name"]) &&  empty($product_image_old)) return 'uploads/no-image-icon.png';
+    if (empty($product_image["tmp_name"]) && !empty($product_image_old)) return $product_image_old;
 
     // UPLOAD ERROR HANDLER
     $errors = [];
@@ -102,15 +129,15 @@ function upload_image($product_image)
     }
 
     if (is_wrong_type($fileType)) {
-        $errors["file_type"] = "File has a wrong extension";
+        $errors["file_type"] = "Súbor má zlý formát!";
     }
 
     if (file_exists($targetFile)) {
-        $errors["file_exists"] = "File already exists!";
+        $errors["file_exists"] = "Súbor s týmto názvom už existuje!";
     }
 
     if (is_file_too_big($product_image)) {
-        $errors["file_size"] = "File is too big!";
+        $errors["file_size"] = "Súbor je príliš veľký!";
     }
 
     if (is_fake_image($product_image)) {
