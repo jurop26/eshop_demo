@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $product_brand = filter_input(INPUT_POST, 'product-brand', FILTER_SANITIZE_SPECIAL_CHARS);
     $product_stocked = filter_input(INPUT_POST, 'product-stocked', FILTER_SANITIZE_SPECIAL_CHARS);
     $product_description = filter_input(INPUT_POST, 'product-description', FILTER_SANITIZE_SPECIAL_CHARS);
-    $product_image_old = filter_input(INPUT_POST, 'product-image-old', FILTER_SANITIZE_URL);
-    $product_image = $_FILES["product-image"];
+    $product_image_old = filter_input(INPUT_POST, 'product-image-old', FILTER_SANITIZE_URL); //URL for product image
+    $product_image = $_FILES["product-image-file"]; //Image file for product image
 
     $product_price = floatval(str_replace(',', '.', $product_price));
 

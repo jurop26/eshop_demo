@@ -15,6 +15,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <script src="handlers/scripts/admin_eshop.js" defer></script>
     <title>Admin Edit product</title>
 </head>
 
@@ -105,16 +106,14 @@ function edit_product_form($product_id, $product_bar_code, $product_name, $produ
                             <textarea type="text" name="product-description" id="product-description">' . $product_description . '</textarea>
                         </li>
                         <li>
-                            <label for="product-image">Pridaj obrázok: </label>
-                            <img src="' . $product_image . '" width="70px">
-                            <input type="hidden" name="product-image-old" value="' . $product_image . '">
-                            <input type="hidden" name="MAX_FILE_SIZE" value="400000">
-                            <input type="file" name="product-image" id="product-image" accept="image/png, image/jpeg, image/jpg">
-                        </li>
-                        <li>
-                            <label></label>
-                            <input type="hidden" name="product-id" value="' . $product_id . '">
-                            <input type="submit" form="edit-product-form" value="Uložiť zmeny produktu">
+                            <label for="product-image-file" id="product-image-label">Upload image:
+                                <input type="hidden" name="product-image-old" value="' . $product_image . '">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="400000">
+                                <input type="file" name="product-image" id="product-image-file" accept="image/png, image/jpeg, image/jpg">
+                                </label>
+                                <img src="' . $product_image . '" id="product-image-preview">
+                                <input type="hidden" name="product-id" value="' . $product_id . '">
+                                <input type="submit" form="edit-product-form"  id="add-product-submit-button" value="Uložiť zmeny produktu">
                         </li>
                     </ul>
                 </form>';
