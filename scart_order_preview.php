@@ -60,7 +60,7 @@ if (
             if ($_SESSION["totalPieces"] < 1) {
                 echo "<button disabled>OBJDENAŤ S POVINNOSŤOU PLATBY</button>";
             } else {
-                echo "<input type='submit' form='' value='OBJDENAŤ S POVINNOSŤOU PLATBY'>";
+                echo '<form action="handlers/final_order_handler.php" method="post" id="final-order"><input type="submit" form="final-order" value="OBJDENAŤ S POVINNOSŤOU PLATBY"></form>';
             }
             ?>
         </div>

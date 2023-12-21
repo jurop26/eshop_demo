@@ -28,7 +28,9 @@ if ($result) {
                 $product_image = $row['product_image'];
                 $product_amount = getProductAmount($product_id, $products_list);
                 $product_price_total = number_format(($product_price * $product_amount), 2, '.');
+
                 $price_total[] = $product_price_total;
+                $final_order[$product_id] = $row['product_stocked'];
 
                 $table_rows .= '<tr align="center"><td>' . $key . '</td><td>' . $product_bar_code . '</><td class="product-name" >' . $product_name . '</td><td>€' . $product_price . ' /ks</td><td>' . $product_amount . '</td><td class="price-align" >€' . $product_price_total . '</td></tr>';
             }
@@ -51,9 +53,9 @@ if ($result) {
                             <tr align="center"><td></td><td></><td class="product-name">' . $payment_type . '</td><td></td><td></td><td class="price-align" >€1.99</td></tr>
                             <tr><td colspan="6"><hr></td></tr>
                             <tr>
-                                <th align="left" colspan="2">Doručovacia adresa:</th>
-                                <th></th>
-                                <td colspan="2" rowspan="1">Suma bez DPH</td><th class="price-align">€' . $price_total . '</td>
+                            <th align="left" colspan="2">Doručovacia adresa:</th>
+                            <th></th>
+                            <td colspan="2" rowspan="1">Suma bez DPH</td><th class="price-align">€' . $price_total . '</td>
                             </tr>
                             <tr><td colspan="2">' . $fullname . '</td><td><td colspan="2" rowspan="1">DPH 20%</td><th class="price-align"> €' . $price_DPH . '</td></td></tr>
                             <tr><td colspan="2">' . $street_number . '</td><td></td><td colspan="2" rowspan="3">Suma spolu</td><th class="price-total" rowspan="3"> €' . $price_total_DPH . '</td></tr>
