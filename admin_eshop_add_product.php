@@ -53,7 +53,7 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
                 <li>
                     <label for="product-description">Popis produktu: </label>
                     <div class="product-description-container">
-                        <textarea type="text" name="product-description" id="product-description"></textarea>
+                        <textarea type="text" name="product-description" id="product-description" maxlength="1000"></textarea>
                         <div id="textarea-letter-counter">0/1000</div>
                     </div>
                 </li>
