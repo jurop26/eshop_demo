@@ -63,11 +63,13 @@ function edit_product_form($product_id, $product_bar_code, $product_name, $produ
                         </li>
                         <li>
                             <label for="product-image-file" id="product-image-label">Upload image:
-                                <input type="hidden" name="product-image-old" value="' . $product_image . '">
+                                <input type="hidden" name="product-image-old" id="product-image-old" value="' . $product_image . '">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="400000">
                                 <input type="file" name="product-image-file" id="product-image-file" accept="image/png, image/jpeg, image/jpg">
                                 </label>
-                                <img src="' . $product_image . '" id="product-image-preview">
+                                <div id="product-image-preview-container"><img src="' . $product_image . '" id="product-image-preview">
+                                    <div class="times">&#10060;</div>
+                                </div>
                                 <input type="hidden" name="product-id" value="' . $product_id . '">
                                 <input type="submit" form="edit-product-form"  id="add-product-submit-button" value="Uložiť zmeny produktu">
                         </li>

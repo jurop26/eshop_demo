@@ -109,7 +109,7 @@ function is_input_empty($product_barcode, $product_name, $product_category, $pro
 
 function upload_image($product_image, $product_image_old)
 {
-    // NO IMAGE ADDED TO THE PRODUCT, DEFAULT IMAGE ADEDD AUTOMATICALLY
+    // NO IMAGE ADDED TO THE PRODUCT, DEFAULT IMAGE OR OLD IMAGE ADDED AUTOMATICALLY
     if (empty($product_image["tmp_name"]) &&  empty($product_image_old)) return 'uploads/no-image-icon.png';
     if (empty($product_image["tmp_name"]) && !empty($product_image_old)) return $product_image_old;
 

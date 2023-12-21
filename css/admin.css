@@ -167,9 +167,19 @@ table, tr, td, th {
     width: 40%;
 }
 
-.add-product-container textarea {
+.product-description-container {
     width: 70%;
-    min-height: 5rem;
+    margin-right: 40px;
+}
+
+.product-description-container div {
+    text-align: right;
+}
+
+.add-product-container textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 7rem;
     resize: vertical;
 }
 
@@ -191,9 +201,35 @@ table, tr, td, th {
     display: none;
 }
 
+#product-image-preview-container {
+    position: relative;
+    z-index: 999;
+}
+
 #product-image-preview {
+    border: .5px solid black;
     width: 70px;
     height: 70px;
+    cursor: pointer;
+}
+
+#product-image-preview-container:hover .times {
+    display: block;
+}
+
+#product-image-preview-container:hover #product-image-preview {
+    transition: .5s;
+    opacity: 0.5;
+}
+
+.times {
+    position: absolute;
+    display: none;
+    font-size: 65px;
+    font-weight: 100;
+    right: 3px;
+    top: -5px;
+    cursor: pointer;
 }
 
 #add-product-submit-button {

@@ -52,19 +52,21 @@ if (!isset($_SESSION["admin_username"]) && empty($_SESSION["admin_username"])) {
                 </li>
                 <li>
                     <label for="product-description">Popis produktu: </label>
-                    <textarea type="text" name="product-description" id="product-description"></textarea>
+                    <div class="product-description-container">
+                        <textarea type="text" name="product-description" id="product-description"></textarea>
+                        <div id="textarea-letter-counter">0/1000</div>
+                    </div>
                 </li>
                 <li>
                     <label for="product-image-file" id="product-image-label">Upload image:
                         <input type="hidden" name="MAX_FILE_SIZE" value="400000">
                         <input type="file" name="product-image-file" id="product-image-file" accept="image/png, image/jpeg, image/jpg">
                     </label>
-                    <img src="uploads/no-image-icon.png" id="product-image-preview">
+                    <div id="product-image-preview-container"><img src="uploads/no-image-icon.png" id="product-image-preview">
+                        <div class="times">&#10060;</div>
+                    </div>
                     <input type="submit" form="add-product-form" id="add-product-submit-button" value="Pridať nový produkt">
                 </li>
-                <!-- <li>
-                    <label></label>
-                </li> -->
             </ul>
         </form>
         <div class="errors">
