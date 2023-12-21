@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // ERROR HANDLERS
 
     $errors = [];
-    if (!isset($_FILES["product-image"])) {
+    if (!isset($_FILES["product-image-file"])) {
         $errors["file_upload"] = "Obrázok sa nenačítal správne";
     }
 
@@ -113,6 +113,9 @@ function upload_image($product_image, $product_image_old)
     if (empty($product_image["tmp_name"]) &&  empty($product_image_old)) return 'uploads/no-image-icon.png';
     if (empty($product_image["tmp_name"]) && !empty($product_image_old)) return $product_image_old;
 
+    // DELETE OLD IMAGE FILE OF FROM SERVER WHEN NEW IMAGE IS SET
+    if (!empty($product_image["tmp_name"]) && !empty($product_image_old)) delete_product_image($product_image_old);
+
     // UPLOAD ERROR HANDLER
     $errors = [];
 
@@ -172,4 +175,11 @@ function is_file_too_big($product_image)
 {
     if ($product_image["size"] > 400000) return true;
     else return false;
+}
+
+function delete_product_image($product_image_url)
+{
+    if ($product_image_url === 'uploads/no-image-icon.png') return;
+
+    unlink('../' . $product_image_url);
 }
