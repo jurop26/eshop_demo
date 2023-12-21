@@ -40,13 +40,13 @@ if ($result) {
             $payment_type_price = 0;
 
             $price_total = number_format(array_sum($price_total) + $shipment_price + $payment_type_price, 2, '.');
-            $price_DPH = number_format(($price_total * 0.2), 2, '.');
-            $price_total_DPH = number_format(($price_total * 1.2), 2, '.');
+            $price_DPH = number_format($price_total * 0.2, 2, '.');
+            $price_total_without_DPH = number_format(($price_total - $price_DPH), 2, '.');
 
             echo '<table border=0>
                         <tbody>
                             <caption>OBJEDNÁVKA</caption>
-                            <tr><th>P.č.</th><th>barcode</><th>Názov produktu</th><th>cena/ks</th><th>kusy</th><th>cena bez DPH</th</tr>
+                            <tr><th>P.č.</th><th>barcode</><th>Názov produktu</th><th>cena/ks</th><th>kusy</th><th>cena s DPH</th</tr>
                             <tr><td colspan="6"><hr></td></tr>
                             ' . $table_rows . '
                             <tr align="center"><td></td><td></><td class="product-name">' . $shipment . '</td><td></td><td></td><td class="price-align" >€1.99</td></tr>
@@ -55,10 +55,10 @@ if ($result) {
                             <tr>
                             <th align="left" colspan="2">Doručovacia adresa:</th>
                             <th></th>
-                            <td colspan="2" rowspan="1">Suma bez DPH</td><th class="price-align">€' . $price_total . '</td>
+                            <td colspan="2" rowspan="1">Suma bez DPH</td><th class="price-align">€' . $price_total_without_DPH . '</td>
                             </tr>
                             <tr><td colspan="2">' . $fullname . '</td><td><td colspan="2" rowspan="1">DPH 20%</td><th class="price-align"> €' . $price_DPH . '</td></td></tr>
-                            <tr><td colspan="2">' . $street_number . '</td><td></td><td colspan="2" rowspan="3">Suma spolu</td><th class="price-total" rowspan="3"> €' . $price_total_DPH . '</td></tr>
+                            <tr><td colspan="2">' . $street_number . '</td><td></td><td colspan="2" rowspan="3"><b>Suma spolu s DPH</b></td><th class="price-total" rowspan="3"> €' . $price_total . ',-</td></tr>
                             <tr><td colspan="2">' . $city . '</td><td><b>Email:</b> ' . $order_email . '</td></tr>
                             <tr><td colspan="2">' . $postal_code . '</td><td><b>Tel. č.:</b> ' . $phone_number . '</td></tr>
                         </tbody>

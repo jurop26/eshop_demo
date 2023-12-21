@@ -25,6 +25,7 @@ if (!isset($_COOKIE["orderNo"])) {
     create_shopping_cart($pdo, $uniqid, $product);
 
     $echo_response = array("message" => "Produkt bol pridany do kosika", "totalPieces" => $total_pieces);
+    die(json_encode($echo_response));
 } else {
     // get unique id from cookies
     $uniqid = getOrderNumberFromCookies("orderNo");
