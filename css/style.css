@@ -536,17 +536,21 @@ footer {
 /* -------------------Preview order style ---------------- */
 
 table {
+    border-collapse: collapse;
     margin: 30px;
     padding: 20px;
 }
 
 table .price-total {
     color: red;
+    font-size: larger;
+    text-align: right;
+    padding-right: 30px;
 }
 
-table .price-align {
+table .align-right {
     text-align: right;
-    padding-right: 5%;
+    padding-right: 30px;
 }
 
 table .product-name {

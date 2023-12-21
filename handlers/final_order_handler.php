@@ -20,7 +20,10 @@ if ($shopping_cart) {
 
     if ($products) {
         foreach ($products as $product) {
-            $updated_products[$product["product_id"]] = $product["product_stocked"] - getProductAmount($product["product_id"], $products_list);
+            $updated_products[$product["product_id"]] = [
+                "product_stocked" => $product["product_stocked"] - getProductAmount($product["product_id"], $products_list),
+                "product_sales" => getProductAmount($product["product_id"], $products_list)
+            ];
         }
 
         update_products($pdo, $updated_products);
@@ -36,10 +39,11 @@ if ($shopping_cart) {
 function update_products($pdo, $updated_products)
 {
     try {
-        $sql = "UPDATE products SET product_stocked = :updated_stock WHERE product_id = :product_id";
+        $sql = "UPDATE products SET product_stocked = :updated_stock, product_sales = :product_sales WHERE product_id = :product_id";
         $stmt = $pdo->prepare($sql);
         foreach ($updated_products as $key => $value) {
-            $stmt->bindParam(':updated_stock', $value);
+            $stmt->bindParam(':updated_stock', $value["product_stocked"]);
+            $stmt->bindParam(':product_sales', $value["product_sales"]);
             $stmt->bindParam(':product_id', $key);
             $stmt->execute();
         }

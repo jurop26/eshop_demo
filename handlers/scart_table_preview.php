@@ -32,7 +32,7 @@ if ($result) {
                 $price_total[] = $product_price_total;
                 $final_order[$product_id] = $row['product_stocked'];
 
-                $table_rows .= '<tr align="center"><td>' . $key . '</td><td>' . $product_bar_code . '</><td class="product-name" >' . $product_name . '</td><td>€' . $product_price . ' /ks</td><td>' . $product_amount . '</td><td class="price-align" >€' . $product_price_total . '</td></tr>';
+                $table_rows .= '<tr align="center"><td>' . $key . '</td><td>' . $product_bar_code . '</><td class="product-name" >' . $product_name . '</td><td class="align-right">€' . $product_price . ' /ks</td><td>' . $product_amount . '</td><td class="align-right" >€' . $product_price_total . '</td></tr>';
             }
             $shipment = $_SESSION["shipment"];
             $shipment_price = 1.99;
@@ -43,21 +43,21 @@ if ($result) {
             $price_DPH = number_format($price_total * 0.2, 2, '.');
             $price_total_without_DPH = number_format(($price_total - $price_DPH), 2, '.');
 
-            echo '<table border=0>
+            echo '<table>
                         <tbody>
                             <caption>OBJEDNÁVKA</caption>
-                            <tr><th>P.č.</th><th>barcode</><th>Názov produktu</th><th>cena/ks</th><th>kusy</th><th>cena s DPH</th</tr>
+                            <tr><th>P.č.</th><th>barcode</><th>Názov produktu</th><th class="align-right">cena/ks</th><th>kusy</th><th class="align-right">cena s DPH</th</tr>
                             <tr><td colspan="6"><hr></td></tr>
                             ' . $table_rows . '
-                            <tr align="center"><td></td><td></><td class="product-name">' . $shipment . '</td><td></td><td></td><td class="price-align" >€1.99</td></tr>
-                            <tr align="center"><td></td><td></><td class="product-name">' . $payment_type . '</td><td></td><td></td><td class="price-align" >€1.99</td></tr>
+                            <tr align="center"><td></td><td></><td class="product-name">' . $shipment . '</td><td></td><td></td><td class="align-right" >€1.99</td></tr>
+                            <tr align="center"><td></td><td></><td class="product-name">' . $payment_type . '</td><td></td><td></td><td class="align-right" >€1.99</td></tr>
                             <tr><td colspan="6"><hr></td></tr>
                             <tr>
                             <th align="left" colspan="2">Doručovacia adresa:</th>
                             <th></th>
-                            <td colspan="2" rowspan="1">Suma bez DPH</td><th class="price-align">€' . $price_total_without_DPH . '</td>
+                            <td colspan="2" rowspan="1">Suma bez DPH</td><th class="align-right">€' . $price_total_without_DPH . '</td>
                             </tr>
-                            <tr><td colspan="2">' . $fullname . '</td><td><td colspan="2" rowspan="1">DPH 20%</td><th class="price-align"> €' . $price_DPH . '</td></td></tr>
+                            <tr><td colspan="2">' . $fullname . '</td><td><td colspan="2" rowspan="1">DPH 20%</td><th class="align-right"> €' . $price_DPH . '</td></td></tr>
                             <tr><td colspan="2">' . $street_number . '</td><td></td><td colspan="2" rowspan="3"><b>Suma spolu s DPH</b></td><th class="price-total" rowspan="3"> €' . $price_total . ',-</td></tr>
                             <tr><td colspan="2">' . $city . '</td><td><b>Email:</b> ' . $order_email . '</td></tr>
                             <tr><td colspan="2">' . $postal_code . '</td><td><b>Tel. č.:</b> ' . $phone_number . '</td></tr>
