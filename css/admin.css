@@ -172,8 +172,10 @@ table, tr, td, th {
     margin-right: 40px;
 }
 
-.product-description-container div {
+#textarea-letter-counter {
     text-align: right;
+    font-weight: bold;
+    color: red;
 }
 
 .add-product-container textarea {

@@ -59,7 +59,10 @@ function edit_product_form($product_id, $product_bar_code, $product_name, $produ
                         </li>
                         <li>
                             <label for="product-description">Popis produktu: </label>
-                            <textarea type="text" name="product-description" id="product-description">' . $product_description . '</textarea>
+                            <div class="product-description-container">
+                                <textarea type="text" name="product-description" id="product-description">' . $product_description . '</textarea>
+                                <div id="textarea-letter-counter">0/1000</div>
+                            </div>
                         </li>
                         <li>
                             <label for="product-image-file" id="product-image-label">Upload image:
