@@ -34,6 +34,17 @@ body, html {
     margin-right: 10px;
     height: 105px;
 }
+
+.profile {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.profile a {
+    color: blue;
+}
+
 .header-nav-container button{
     margin-top: 10px;
 }
@@ -494,24 +505,19 @@ footer {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-
 }
 
 .submit-container {
-    margin-top: 10px;
+    margin-top: 30px;
     text-align: right;
 }
 
 .submit-container input {
     position: relative;
-    /* margin-right: 100px; */
-    /* right: 20px; */
-
 }
 
 .phone-box {
     width: 70%;
-    /* box-sizing: border-box; */
 }
 
 .phone-box select {

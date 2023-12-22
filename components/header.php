@@ -1,11 +1,16 @@
 <div class="header">
     <header>
         <a href="home">
-            <h1>Vitajte v eshope <?php echo $_SESSION["username"] ?></h1>
+            <h1>Vitajte v eshope</h1>
         </a>
     </header>
     <div class="header-nav-container">
         <nav>
+            <button class="profile">
+                <a href="profile.php">
+                    <?php echo $_SESSION["username"] ?>
+                </a>
+            </button>
             <button>
                 <?php
                 if (isset($_SESSION["username"]) && !empty($_SESSION["username"])) {
