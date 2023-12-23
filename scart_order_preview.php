@@ -21,7 +21,7 @@ if (
     $phone_code = htmlspecialchars($_POST['phone-code']);
     $phone = htmlspecialchars($_POST['phone']);
     $phone_number = $phone_code . $phone;
-    $shipment = $_SESSION['payment'];
+    $shipment = $_SESSION['shipment'];
     $payment = $_SESSION['payment'];
 }
 

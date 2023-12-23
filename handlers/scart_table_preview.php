@@ -1,11 +1,8 @@
 <?php
-
-$price_total = [];
-
-$uniqid = json_decode($_COOKIE['orderNo']);
-
 require_once 'connections/dbh.php';
 
+$price_total = [];
+$uniqid = json_decode($_COOKIE['orderNo']);
 $result = get_shopping_cart($pdo, $uniqid);
 
 if ($result) {
@@ -39,7 +36,8 @@ if ($result) {
             $payment_type = $_SESSION["payment"];
             $payment_type_price = $_SESSION["payment_price"];
 
-
+            $shipment_price = number_format($shipment_price, 2, '.');
+            $payment_type_price = number_format($payment_type_price, 2, '.');
             $price_total = number_format(array_sum($price_total) + $shipment_price + $payment_type_price, 2, '.');
             $price_DPH = number_format($price_total * 0.2, 2, '.');
             $price_total_without_DPH = number_format(($price_total - $price_DPH), 2, '.');
@@ -50,8 +48,8 @@ if ($result) {
                             <tr><th>P.č.</th><th>barcode</><th>Názov produktu</th><th class="align-right">cena/ks</th><th>kusy</th><th class="align-right">cena s DPH</th</tr>
                             <tr><td colspan="6"><hr></td></tr>
                             ' . $table_rows . '
-                            <tr align="center"><td></td><td></><td class="product-name">' . $shipment . '</td><td></td><td></td><td class="align-right" >€1.99</td></tr>
-                            <tr align="center"><td></td><td></><td class="product-name">' . $payment_type . '</td><td></td><td></td><td class="align-right" >€1.99</td></tr>
+                            <tr align="center"><td></td><td></><td class="product-name">' . $shipment . '</td><td></td><td></td><td class="align-right" >€' . $shipment_price . '</td></tr>
+                            <tr align="center"><td></td><td></><td class="product-name">' . $payment_type . '</td><td></td><td></td><td class="align-right" >€' . $payment_type_price . '</td></tr>
                             <tr><td colspan="6"><hr></td></tr>
                             <tr>
                             <th align="left" colspan="2">Doručovacia adresa:</th>
