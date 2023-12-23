@@ -35,10 +35,11 @@ if ($result) {
                 $table_rows .= '<tr align="center"><td>' . $key . '</td><td>' . $product_bar_code . '</><td class="product-name" >' . $product_name . '</td><td class="align-right">€' . $product_price . ' /ks</td><td>' . $product_amount . '</td><td class="align-right" >€' . $product_price_total . '</td></tr>';
             }
             $shipment = $_SESSION["shipment"];
-            $shipment_price = 1.99;
+            $shipment_price = $_SESSION["shipment_price"];
             $payment_type = $_SESSION["payment"];
-            $payment_type_price = 0;
-            echo array_sum($price_total) + $shipment_price + $payment_type_price;
+            $payment_type_price = $_SESSION["payment_price"];
+
+
             $price_total = number_format(array_sum($price_total) + $shipment_price + $payment_type_price, 2, '.');
             $price_DPH = number_format($price_total * 0.2, 2, '.');
             $price_total_without_DPH = number_format(($price_total - $price_DPH), 2, '.');

@@ -28,7 +28,13 @@ if ($shopping_cart) {
 
         update_products($pdo, $updated_products);
         delete_shopping_cart($pdo, $uniqid);
+
         $_SESSION['totalPieces'] = 0;
+        unset($_SESSION["shipment"]);
+        unset($_SESSION["shipment_price"]);
+        unset($_SESSION["payment"]);
+        unset($_SESSION["payment_price"]);
+
         setcookie("orderNo", '', time() - 3600, '/');
         header("Location: ../scart_final_order.php");
         die();

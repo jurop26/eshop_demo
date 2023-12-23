@@ -4,6 +4,8 @@ require_once 'handlers/_config_session.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["shipment"]) && isset($_POST["payment"])) {
     $_SESSION["shipment"] = $_POST["shipment"];
     $_SESSION["payment"] = $_POST["payment"];
+    $_SESSION["shipment_price"] = $_POST["shipment-price"];
+    $_SESSION["payment_price"] = $_POST["payment-price"];
 }
 
 ?>
