@@ -38,7 +38,7 @@ if ($result) {
             $shipment_price = 1.99;
             $payment_type = $_SESSION["payment"];
             $payment_type_price = 0;
-
+            echo array_sum($price_total) + $shipment_price + $payment_type_price;
             $price_total = number_format(array_sum($price_total) + $shipment_price + $payment_type_price, 2, '.');
             $price_DPH = number_format($price_total * 0.2, 2, '.');
             $price_total_without_DPH = number_format(($price_total - $price_DPH), 2, '.');

@@ -13,7 +13,6 @@ if ($user) {
         $user_phone_country = $person["user_phone_country"];
         $user_phone_number = $person["user_phone_number"];
     }
-    // print_r($person);
     echo get_profile_form($user_street_address, $user_house_number, $user_city, $user_postal_code, $user_phone_country, $user_phone_number);
 }
 
@@ -27,13 +26,13 @@ function get_profile_form($user_street_address, $user_house_number, $user_city, 
             <h1 style="text-align: center;">Váš profil</h1>
         </div>
         <div class="preview-content-container">
-            <form action="" id="form_order_information" method="post">
+            <form action="handlers/profile_handler.php" id="form-profile" method="post">
                 <div class="form-row-container">
                     <div class="label-container">
                         <label for="email-order">Email</label>
                     </div>
                     <div class="input-container">
-                        <input type="email" class="single-input" name="email-order" id="email-order" value="' . $_SESSION["email"] . '" autocomplete="email" required>
+                        <input type="email" class="single-input" name="email" id="email-order" value="' . $_SESSION["email"] . '" autocomplete="email">
                     </div>
                 </div>
                 <div class="form-row-container">
@@ -83,7 +82,7 @@ function get_profile_form($user_street_address, $user_house_number, $user_city, 
 
                         </div>
                         <div class="submit-container">
-                            <input type="submit" name="submit" value="Uložiť zmeny">
+                            <input type="submit" form="form-profile" name="submit" value="Uložiť zmeny">
                         </div>
                     </div>
                 </div>

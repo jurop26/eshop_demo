@@ -36,11 +36,17 @@ $payment = ['Dobierka' => 1.00, 'VISA' => 0, 'Apple Pay' => 0, 'Google Pay' => 0
                     <h4 class="form-content-description">ZVOĽTE SPÔSOB DOPRAVY</h4>
                     <?php
                     foreach ($shipment as $currier => $shipment_price) {
-                        echo "<span><input type='radio' name='shipment' value='$currier'> $currier</input></span>";
+                        echo '<span>
+                            <input type="radio" name="shipment" value="$currier">' . $currier . '</input>
+                            <input type="hidden" name="shipment_price" value="' . $shipment_price . '" />
+                            </span>';
                     }
                     echo "<h4 class='form-content-description'>ZVOĽTE SPÔSOB DOPRAVY</h4>";
                     foreach ($payment as $payment_method => $payment_price) {
-                        echo "<span><input type='radio' name='payment' value='$payment_method'> $payment_method</input></span>";
+                        echo '<span>
+                            <input type="radio" name="payment" value="$payment_method">' . $payment_method . '</input>
+                            <input type="hidden" name="payment_price" value="' . $payment_price . '" />
+                            </span>';
                     }
                     ?>
                 </form>
