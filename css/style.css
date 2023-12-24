@@ -469,7 +469,7 @@ footer {
 
 .form-content-description {
     font-style: italic;
-    padding: 30px 0 30px;
+    padding: 0 0 30px;
 }
 
 /* -------------------Address order style ---------------- */
@@ -509,6 +509,7 @@ footer {
 
 .submit-container {
     margin-top: 30px;
+    padding-bottom: 30px;
     text-align: right;
 }
 

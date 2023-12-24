@@ -1,10 +1,5 @@
 <?php
 require_once 'handlers/_config_session.php';
-
-if (!isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
-    header("Location: index.php");
-    die();
-}
 ?>
 
 <!DOCTYPE html>

@@ -1,5 +1,10 @@
 <?php
 
+if (!isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
+    header("Location: index.php");
+    die();
+}
+
 require_once 'handlers/connections/dbh.php';
 $email = $_SESSION["email"];
 $user = get_user($pdo, $email);
@@ -86,6 +91,32 @@ function get_profile_form($user_street_address, $user_house_number, $user_city, 
                         </div>
                     </div>
                 </div>
+            </form>
+            <form action="handlers/profile_handler.php" id="form-profile-password" method="post">
+                <div class="form-row-container">
+                    <div class="label-container">
+                        <label for="postal-code">Heslo: </label>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" class="single-input" name="password" id="password" autocomplete="off" value="" required>
+                    </div>
+                </div>
+                <div class="form-row-container">
+                    <div class="label-container">
+                        <label for="new-password">Nové heslo: </label>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" class="single-input" name="new-password" id="new-password" autocomplete="off" value="" required>
+                    </div>
+                </div>
+                <div class="form-row-container">
+                <div class="label-container">
+
+                </div>
+                <div class="submit-container">
+                    <input type="submit" form="form-profile-password" name="submit" value="Zmeniť heslo">
+                </div>
+            </div>
             </form>
         </div>';
     return $container;

@@ -8,7 +8,35 @@ if (!isset($_SESSION["username"]) && empty($_SESSION["username"])) {
     die();
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if (
+    $_SERVER["REQUEST_METHOD"] === "POST" &&
+    isset($_POST["password"]) && !empty($_POST["password"]) &&
+    isset($_POST["new-password"]) && !empty($_POST["new-password"])
+) {
+    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $new_password = filter_input(INPUT_POST, "new-password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $email = $_SESSION["email"];
+    require_once 'connections/dbh.php';
+
+    //ERROR HANDLER
+    $errors = [];
+
+    if (is_password_incorrect($pdo, $email, $password)) {
+        $errors["password_incorrect"] = "Nesprávne prihlasovacie údaje!";
+    }
+
+    if ($errors) {
+        $_SESSION["errors"] = $errors;
+        header("Location: ../profile.php");
+        die();
+    }
+
+    update_user_password($pdo, $email, $new_password);
+    header("Location: ../profile.php");
+    die();
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["password"])) {
 
     $email = $_SESSION["email"];
     $new_email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -46,6 +74,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 } else {
     header("Location: ../profile.php");
     die();
+}
+
+function is_password_incorrect($pdo, $email, $password)
+{
+    try {
+        $sql = "SELECT password FROM users WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $hashed_password = $stmt->fetch(PDO::FETCH_COLUMN);
+    } catch (PDOException $e) {
+        die("Nepodarilo sa načítať uživateľa: " . $e->getMessage());
+    }
+    return !password_verify($password, $hashed_password);
+}
+
+function update_user_password($pdo, $email, $new_password)
+{
+    try {
+        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET password = :new_password WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':new_password', $new_password);
+        $stmt->execute();
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Nepodarilo sa uložiť nové heslo: " . $e->getMessage());
+    }
 }
 
 function update_user($pdo, $email, $new_email, $user_first_name, $user_last_name, $user_street_address, $user_house_number, $user_city, $user_postal_code, $user_phone_country, $user_phone_number)
