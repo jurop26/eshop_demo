@@ -32,6 +32,10 @@ if (
     }
 
     update_user_password($pdo, $email, $new_password);
+
+    $message["success"] = "Vaše údaje v profile boli zmenené";
+    $_SESSION["message"] = $message;
+
     header("Location: ../profile.php");
     die();
 }
@@ -54,8 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["password"])) {
 
     require_once 'connections/dbh.php';
 
-    //ERROR HANDLER
+    //ERROR HANDLER OR MESSAGE
     $errors = [];
+    $message = [];
 
     if (email_exists($pdo, $email, $new_email)) {
         $errors["email_exists"] = "Email už používa iný profil";
@@ -69,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["password"])) {
 
     update_user($pdo, $email, $new_email, $user_first_name, $user_last_name, $user_street_address, $user_house_number, $user_city, $user_postal_code, $user_phone_country, $user_phone_number);
     $_SESSION["email"] = $new_email;
+
+    $message["success"] = "Vaše údaje v profile boli zmenené";
+    $_SESSION["message"] = $message;
     header("Location: ../profile.php");
     die();
 } else {

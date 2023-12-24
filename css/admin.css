@@ -45,6 +45,7 @@ body {
 }
 
 .errors {
+    text-align: center;
     color: red;
 }
 

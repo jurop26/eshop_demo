@@ -20,14 +20,22 @@ require_once 'handlers/_config_session.php';
             <hr>
         </div>
         <?php include_once 'handlers/profile_includes.php'; ?>
-        <?php
-        if (isset($_SESSION["errors"])) {
-            foreach ($_SESSION["errors"] as $error) {
-                echo $error;
+        <div class="errors">
+            <?php
+            if (isset($_SESSION["errors"])) {
+                foreach ($_SESSION["errors"] as $error) {
+                    echo $error;
+                }
+                unset($_SESSION["errors"]);
             }
-            unset($_SESSION["errors"]);
-        }
-        ?>
+            if (isset($_SESSION["message"])) {
+                foreach ($_SESSION["message"] as $error) {
+                    echo $error;
+                }
+                unset($_SESSION["message"]);
+            }
+            ?>
+        </div>
         <?php include_once('components/footer.php'); ?>
     </div>
 
