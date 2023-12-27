@@ -93,7 +93,7 @@ function create_admin_table($pdo)
             user_first_name VARCHAR(50) NULL,
             user_last_name VARCHAR(50) NULL,
             email VARCHAR(100) NULL,
-            password VARCHAR(50) NULL,
+            password VARCHAR(100) NULL,
             user_phone_number INT(15) NULL,
             user_street_address VARCHAR(100) NULL,
             user_house_number VARCHAR(15) NULL,
@@ -113,6 +113,7 @@ function create_company_data_table($pdo)
 {
     try {
         $sql = 'CREATE TABLE IF NOT EXISTS company_data(
+            company_id INT AUTO_INCREMENT,
             company_name VARCHAR(50) NULL,
             company_ico VARCHAR(15) NULL,
             company_dic VARCHAR(20) NULL,

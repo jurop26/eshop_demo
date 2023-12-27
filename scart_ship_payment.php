@@ -55,12 +55,12 @@ $payment = ['Dobierka' => 1.00, 'VISA' => 0, 'Apple Pay' => 0, 'Google Pay' => 0
                 <?php
                 echo "<h4 class='form-content-description'>DOPLATOK</h4>";
                 foreach ($shipment as $currier => $shipment_price) {
-                    $shipment_price = number_format($shipment_price, 2, '.');
+                    $shipment_price = number_format($shipment_price, 2);
                     echo "<span>€$shipment_price</span>";
                 }
                 echo "<h4 class='form-content-description'>DOPLATOK</h4>";
                 foreach ($payment as $payment_method => $payment_price) {
-                    $payment_price = number_format($payment_price, 2, '.');
+                    $payment_price = number_format($payment_price, 2);
                     echo "<span>€$payment_price</span>";
                 }
                 ?>
